@@ -1,7 +1,6 @@
 package com.trainer.mutabilidad;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class ahorcado {
@@ -42,25 +41,33 @@ public class ahorcado {
 
         while (contadorIntentos < 3) {
             System.out.print("Ingrese una letra: ");
-            String letra = sc.nextLine();
+            char letra = sc.nextLine().charAt(0);
+            boolean letraEncontrada = false;
+        
             for (int i = 0; i < palabraSelecta.length(); i++) {
-                if (String.valueOf(palabraSelecta.charAt(i)).equals(letra)) {
-                    System.out.println(palabraguiones);
-                    palabraguiones.setCharAt(i, String.valueOf(letra.charAt(0)));
-                    System.out.println("monda");
+                if (palabraSelecta.charAt(i)== letra) {
+                    palabraguiones.setCharAt(i, letra);
+                    letraEncontrada = true;
                 }
             }
-
-        if (palabraSelecta.contains(letra)) {
-            System.out.println("Letra");
-            // for (int i = 0; i < longitud; i++) {
-            //     if (palabraSelecta.charAt(i) == letra.charAt(0)) {
-            //         palabraMostrada[i] = letra.charAt(0);
-            //         }
-            }else{
-            contadorIntentos++;
-            System.out.println("Intentos que llevas: " + contadorIntentos );
+            System.out.println(palabraguiones);
+        
+            if (letraEncontrada) {
+                System.out.println("Letra encontrada");
+            } else {
+                contadorIntentos++;
+                System.out.println("Intentos que llevas: " + contadorIntentos);
             }
+        
+            if (palabraguiones.indexOf("_") == -1) {
+                System.out.println("Felicidades, completaste la palabra: " + palabraguiones);
+                break; // Salir del ciclo while
+            }
+        
+            if (contadorIntentos == 3) {
+                System.out.println("Has alcanzado el número máximo de intentos.");
+            }
+        
             
         }
         
