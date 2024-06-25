@@ -7,7 +7,21 @@ import com.soccer.view.viewTeam;
 
 public class Main {
     public static Controller controlador;
+
+    
+
     public static void main(String[] args) {
+
+        Controller ctrlTeams = new Controller();
+        viewTeam.controlador = ctrlTeams;
+        viewTeam vt = new viewTeam();
+
+        Controller ctrlplayer = new Controller();
+        viewPlayer.jugadores = ctrlplayer;
+        viewPlayer.controladorEquipos = ctrlTeams;
+        viewPlayer vp = new viewPlayer();
+
+
         
 
         Scanner scanner = new Scanner(System.in);
@@ -22,25 +36,27 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    Controller ctrlTeams = new Controller();
-                    viewTeam.controlador = ctrlTeams;
-                    viewTeam vt = new viewTeam();
+                   
                     vt.start();
                     break;
                 case 2:
-                    Controller ctrlplayer = new Controller();
-                    viewPlayer.controlador = ctrlplayer;
-                    viewPlayer vp = new viewPlayer();
+                  
                     vp.start();
                     break;
-                default:
+
+                    case 3 :
                     break;
+                    case 4 :
+                    break;
+                    case 5 :
+                    scanner.close();
+                    System.exit(choice);
+                    System.out.println("Hasta Luego Socio");
+                    break;
+                
             }
         }
 
-
-
-
-       // System.out.println("Jugador"+ eq.getLstJugadores().get(0).getNombre());
+        // System.out.println("Jugador"+ eq.getLstJugadores().get(0).getNombre());
     }
 }

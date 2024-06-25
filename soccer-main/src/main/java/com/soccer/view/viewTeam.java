@@ -1,10 +1,7 @@
 package com.soccer.view;
 
 import java.text.MessageFormat;
-
 import java.util.Map;
-// import java.security.PublicKey;
-// import java.util.Enumeration;
 import java.util.Scanner;
 
 import com.soccer.Controller;
@@ -142,10 +139,10 @@ public class viewTeam {
                     break;
 
                 case 6:
-                    scanner.close();
-                    System.exit(0);
+                    //scanner.close();
+                    //System.exit(choice);
                     System.out.println("Hasta Luego Socio");
-                    break;
+                    return;
 
                 default:
                     System.out.println("Opcion invalida, intentelo de nuevo.");
