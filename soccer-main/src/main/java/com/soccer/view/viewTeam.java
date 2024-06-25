@@ -1,7 +1,10 @@
 package com.soccer.view;
 
-import java.security.PublicKey;
-import java.util.Enumeration;
+import java.text.MessageFormat;
+
+import java.util.Map;
+// import java.security.PublicKey;
+// import java.util.Enumeration;
 import java.util.Scanner;
 
 import com.soccer.Controller;
@@ -11,6 +14,7 @@ public class viewTeam {
     public static Controller controlador;
 
     public void start() {
+
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -25,6 +29,8 @@ public class viewTeam {
 
             switch (choice) {
                 case 1:
+                    System.out.println(
+                            "---------------------------------[CREAR EQUIPOS]--------------------------------- ");
                     Team equipo = new Team();
                     String codigoEquipo = null;
                     System.out.println("Ingrese el codigo del equipo :");
@@ -37,56 +43,114 @@ public class viewTeam {
                     break;
 
                 case 2:
-                    System.out.println("ingresar codigo del equipo");
-                    codigoEquipo = scanner.nextLine();
+                    System.out.println(
+                            "---------------------------------[ACTUALIZAR EQUIPOS]--------------------------------- ");
 
-                    if (controlador.equipos.containsKey(codigoEquipo)) {
-                        equipo = controlador.equipos.get(codigoEquipo);
-                        System.out.println("Ingrese el nuevo nombre del equipo:");
-                        equipo.setNombre(scanner.nextLine());
-                        System.out.println("Ingrese la nueva ciudad del equipo:");
-                        equipo.setCiudad(scanner.nextLine());
-                        controlador.equipos.put(codigoEquipo, equipo);
-                        System.out.println("Equipo actualizado correctamente: " + equipo.getNombre());
-                    } else {
-                        System.out.println("El equipo con el código " + codigoEquipo + " no existe por el momento.");
+                    System.out.println("1. Actualizar Nombre");
+                    System.out.println("2. Actualizar Ciudad");
+                    System.out.println("3. Salir");
+                    int op = scanner.nextInt();
+                    scanner.nextLine();
+                    switch (op) {
+                        case 1:
+                            System.out.println("ingrese el Codigo del equipo para Actualizar el Nombre");
+                            codigoEquipo = scanner.nextLine();
+                            if (controlador.equipos.containsKey(codigoEquipo)) {
+                                equipo = controlador.equipos.get(codigoEquipo);
+                                System.out.println("Ingrese el nuevo nombre del equipo:");
+                                equipo.setNombre(scanner.nextLine());
+                                controlador.equipos.put(codigoEquipo, equipo);
+                                System.out.println("Equipo actualizado correctamente: " + equipo.getNombre());
+                            } else {
+                                System.out.println(
+                                        "El equipo con el código " + codigoEquipo + " no existe por el momento.");
+                            }
+                            break;
+                        case 2:
+                            System.out.println("ingrese el Codigo del equipo para Actualizar el Ciudad");
+                            codigoEquipo = scanner.nextLine();
+                            if (controlador.equipos.containsKey(codigoEquipo)) {
+                                equipo = controlador.equipos.get(codigoEquipo);
+                                System.out.println("Ingrese La nueva ciudad del equipo:");
+                                equipo.setCiudad(scanner.nextLine());
+                                controlador.equipos.put(codigoEquipo, equipo);
+                                System.out.println("Equipo actualizado correctamente: " + equipo.getNombre());
+                            } else {
+                                System.out.println(
+                                        "El equipo con el código " + codigoEquipo + " no existe por el momento.");
+                            }
+                        case 3:
+                            // Salir del switch interno sin hacer nada adicional
+                            System.out.println("Saliendo del programa.");
+                            break;
+
+                        default:
+                            System.out.println("Opción inválida, intente de nuevo.");
+                            break;
                     }
+
                     break;
 
                 case 3:
-                    Team eq = new Team();
-                    String codigoE = "001";
-                    eq = controlador.equipos.get(codigoE);
-                    System.out.println("Mi equipo" + eq.getNombre());
+                    System.out.println(
+                            "---------------------------------[BUSCAR EQUIPO POR CÓDIGO]--------------------------------- ");
+                    System.out.println("Ingrese el código del equipo:");
+                    codigoEquipo = scanner.nextLine();
+                    if (controlador.equipos.containsKey(codigoEquipo)) {
+                        equipo = controlador.equipos.get(codigoEquipo);
+                        System.out.println("Equipo encontrado:");
+                        System.out.println("Código: " + codigoEquipo);
+                        System.out.println("Nombre: " + equipo.getNombre());
+                        System.out.println("Ciudad: " + equipo.getCiudad());
+                    } else {
+                        System.out.println("El equipo con el código " + codigoEquipo + " no existe.");
+                    }
                     break;
                 case 4:
+                    System.out.println(
+                            "---------------------------------[BUSCAR EQUIPO POR CÓDIGO]--------------------------------- ");
+                    System.out.println("Ingrese el código del equipo:");
+                    codigoEquipo = scanner.nextLine();
+                    if (controlador.equipos.containsKey(codigoEquipo)) {
+                        equipo = controlador.equipos.remove(codigoEquipo);
+                        System.out.println("Equipo con codigigo: " + codigoEquipo + "fue eliminado exitosamente");
 
+                    } else {
+                        System.out.println("El equipo con el código " + codigoEquipo + " no existe.");
+                    }
                     break;
 
                 case 5:
-                    System.out.println("Ingresar codigo de Equipo para listar");
-                    codigoEquipo = scanner.nextLine();
+                    if (controlador.equipos.isEmpty()) {
+                        System.out.println("no has registrano ningun equipo");
+                        System.out.println("============");
+                    } else {
+                        System.out.println(
+                                "---------------------------------[EQUIPOS]--------------------------------- ");
+                        int i = 0;
+                        for (Map.Entry<String, Team> entry : controlador.equipos.entrySet()) {
+                            String codEquipo5 = entry.getKey();
+                            Team eq = entry.getValue();
+                            System.out.println(
+                                    MessageFormat.format("| Equipo {0} | Codigo: {1} | Nombre: {2} | Ciudad: {3} |", i,
+                                            codEquipo5, eq.getNombre(), eq.getCiudad()));
+                            i++;
+                        }
 
-                    // if (controlador.equipos.contains(codigoEquipo)) {
-                    //     equipo = controlador.equipos.get(codigoEquipo);
-                    //     Enumeration<String> values = equipo.elements();
-                    //     while (values.hasMoreElements()) {
-                    //         Integer value = values.nextElement();
-                    //         System.out.println(value);
-                    //     }
-
-                    // }
+                    }
 
                     break;
 
                 case 6:
                     scanner.close();
                     System.exit(0);
+                    System.out.println("Hasta Luego Socio");
                     break;
 
                 default:
                     System.out.println("Opcion invalida, intentelo de nuevo.");
             }
+
         }
     }
 }
